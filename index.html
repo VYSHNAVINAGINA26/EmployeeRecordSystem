@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Employee Record System</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 15px;
+    background: #000; /* black background */
+    color: #eee;      /* light text */
+  }
+  h1 {
+    text-align: center;
+    color: #00ffff; /* bright cyan for header */
+  }
+  form {
+    margin-bottom: 20px;
+    background: #111; /* dark grey form background */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #0ff;
+  }
+  form input, form button {
+    padding: 10px;
+    margin: 5px 10px 5px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+  }
+  form input {
+    width: 200px;
+    background: #222;
+    color: #eee;
+  }
+  form input::placeholder {
+    color: #999;
+  }
+  form button {
+    cursor: pointer;
+    background-color: #00ffff;
+    color: #000;
+    font-weight: bold;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #111;
+    color: #eee;
+  }
+  th, td {
+    padding: 12px;
+    border: 1px solid #0ff;
+    text-align: left;
+  }
+  th {
+    background: #00cccc;
+    color: #000;
+  }
+  tr:nth-child(even) {
+    background: #222;
+  }
+  #noData {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Employee Record System</h1>
+
+<form id="employeeForm">
+  <input type="text" id="name" placeholder="Name" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="text" id="department" placeholder="Department" required />
+  <button type="submit">Add Employee</button>
+</form>
+
+<table id="employeeTable">
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Department</th></tr>
+  </thead>
+  <tbody id="tableBody">
+    <tr id="noData"><td colspan="3">No employees added yet.</td></tr>
+  </tbody>
+</table>
+
+<script>
+  const form = document.getElementById('employeeForm');
+  const tableBody = document.getElementById('tableBody');
+  const noDataRow = document.getElementById('noData');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const department = document.getElementById('department').value.trim();
+
+    if(name && email && department) {
+      if(noDataRow) {
+        noDataRow.remove(); // remove "no data" row on first add
+      }
+      const newRow = document.createElement('tr');
+
+      newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${email}</td>
+        <td>${department}</td>
+      `;
+
+      tableBody.appendChild(newRow);
+
+      form.reset(); // clear form inputs
+    }
+  });
+</script>
+
+</body>
+</html>
